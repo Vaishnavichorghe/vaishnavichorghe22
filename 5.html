@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Days from Date</title>
+    <style>
+        html, body {
+            height: 100%;
+            margin: 0;
+            padding: 0;
+        }
+
+        #container {
+            text-align: center;
+            background-color: lightblue;
+            height: 100%;
+        }
+
+        #startDay, #daysList li {
+            color: red;
+        }
+        
+        
+        #daysOfWeek, #daysList li {
+            color: green;
+            list-style-type: none;
+        }
+    </style>
+</head>
+<body>
+    <div id="container">
+        <h1>Enter a Date:</h1>
+        <input type="date" id="dateInput">
+        <button onclick="displayDays()">Submit</button>
+        <h2 id="startDay">Days Start from Above Date:</h2>
+        <ul id="daysList"></ul>
+    </div>
+    
+    <script>
+        function displayDays() {
+            const inputDate = new Date(document.getElementById("dateInput").value);
+            const daysOfWeek = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
+            const startDay = daysOfWeek[inputDate.getDay()];
+            
+            const daysList = document.getElementById("daysList");
+            daysList.innerHTML = "";
+            
+            document.getElementById("startDay").textContent = "Days Start from Above Date:";
+            
+            daysList.appendChild(createListItem(startDay));
+            
+            for (let i = 1; i < 7; i++) {
+                const nextDayIndex = (inputDate.getDay() + i) % 7;
+                const nextDay = daysOfWeek[nextDayIndex];
+                daysList.appendChild(createListItem(nextDay));
+            }
+        }
+
+        function createListItem(day) {
+            const listItem = document.createElement("li");
+            listItem.textContent = day;
+            return listItem;
+        }
+    </script>
+</body>
+</html>
